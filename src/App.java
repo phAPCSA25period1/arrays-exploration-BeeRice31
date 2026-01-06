@@ -6,17 +6,18 @@ public class App {
 
     // variable to keep track of current index in the list
     // --- TO DO: why is this static? ---
+    // It is static because it needs to be accessed from static methods like get next index without being modified by other instances.
     private static int currentIndex = 0;
 
     public static void main(String[] args) throws Exception {
         // create a list of top 5 things
         // --- TO DO: Change to your own list ---
         String[] top5 = {
-            "1. Coding",
-            "2. Music",
-            "3. Movies",
-            "4. Sports",
-            "5. Travel"
+            "1. Baseball",
+            "2. Hockey",
+            "3. Football",
+            "4. Basketball",
+            "5. Strongman"
         };
 
          // A JFrame is a window where we can design our UI
@@ -28,7 +29,9 @@ public class App {
         JButton nextButton = new JButton("Next");
         JLabel outputLabel = new JLabel();
         // --- TO DO: create a back button, format, and add it to the frame ---
-
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(250, 200, 100, 50); // Adjust position and size as needed
+        frame.add(backButton);
         // place and size for components
         // setBounds(x position, y position, width, height)
         nextButton.setBounds(100, 200, 100, 50);
@@ -51,6 +54,11 @@ public class App {
         }    });
 
         // --- TO DO: add event listener for back button ---
+        backButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            currentIndex = getPreviousIndex(currentIndex, top5.length);
+            outputLabel.setText(top5[currentIndex]);
+        }    });
         // --- TO DO: create a getPreviousIndex function, see below ---
 
 
@@ -80,6 +88,13 @@ public class App {
      * @param listLength
      * @return previous index
      */
+    public static int getPreviousIndex(int currentIndex, int listLength) {
+    if (currentIndex == 0) {
+        return listLength - 1; // wrap around to the end
+    } else {
+        return currentIndex - 1; // move to the previous index
+    }
+}
     
 }
 
